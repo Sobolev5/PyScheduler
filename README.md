@@ -13,8 +13,10 @@ Rename .env.example to .env and change necessary values
 Add to cron
 > */1 * * * * /var/www/YOUR_PATH/env/bin/python /var/www/YOUR_PATH/run.py snippet.scheduler "run_snippets()" &>/dev/null
 
-# Coffee
-**0x6817b29f6a25B7BaE42158FAFad7b782415e4209** ERC20 Thank you
+## Buy me a coffee [thanks]
+```no-highlight
+TPbvvhqZsEuKCLEAWMAERgw7f82eGeU389 TRC (TRON)
+```
 
 
 
