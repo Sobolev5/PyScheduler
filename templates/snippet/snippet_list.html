@@ -1,0 +1,98 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+
+{% block css %}
+<style>
+pre.prettyprint {
+    padding: 2px;
+    border: 0px solid #888 !important;
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+<ol class="breadcrumb page-breadcrumb">
+    <li class="breadcrumb-item"><a href="/">{{ HOST_PRETTY }}</a></li>
+    <li class="breadcrumb-item">Snippets</a></li>
+    <li class="position-absolute pos-top pos-right d-none d-sm-block">{% now 'd F Y' %}</span></li>
+</ol>
+
+<div class="subheader">
+    <h1 class="subheader-title clearfix">
+        <i class="subheader-icon fal fa-book"></i> Snippet list
+        <a href="{% url 'snippet:snippet_add' %}" class="btn btn-success waves-effect waves-themed ml-auto float-right">
+            <span class="fal fa-plus mr-1"></span>
+            Add snippet
+        </a>
+    </h1>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        {% for snippet in snippets %}
+            <div class="card mb-g p-2 {% if not snippet.active %}disabled{% endif %}">
+                <div class="card-body">
+                    <h2 class="fw-700 m-0 clearfix">
+                        {{ snippet.title }} {% if snippet.last_execution_date %}(Last execution {{ snippet.last_execution_date }}){% endif %}
+                        <a href="{% url 'snippet:snippet_edit' snippet_id=snippet.id %}" class="btn btn-outline-success btn-icon rounded-circle waves-effect waves-themed float-right">
+                            <i class="fal fa-edit"></i>
+                        </a>                     
+                    </h2>
+                    <p>
+                        {{ snippet.description }}
+                    </p>
+                    <p>
+                        <code>{{ snippet.cron_time }}</code>
+                    </p>
+                    <div class="overflow-hidden">
+                        <pre class="prettyprint mb-0">
+{{ snippet.code }}</pre>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ STATIC_URL }}base/js/dependency/moment/moment.js"></script>
+<script src="{{ STATIC_URL }}base/js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script>
+$(document).ready(function()
+{
+    var jsdisplay = $('#js-display');
+    var url = "{{ STATIC_URL }}media/data/plugin-reference.json";
+
+    $.getJSON(url, function(data)
+    {
+        $.each(data, function(index, value)
+        {
+            $('.js-plugins').append('<option value="' + value.plugin + '" data-description="' + value.description + '" data-url="' + value.url + '" data-license="' + value.license + '">' + value.plugin + '</option>');
+        });
+    });
+
+    // SHOW SELECTED VALUE.
+    $('.js-plugins').change(function()
+    {
+        var plugin = this.options[this.selectedIndex].text;
+        var url = $('select.js-plugins').find(':selected').data('url');
+        var license = $('select.js-plugins').find(':selected').data('license');
+        var description = $('select.js-plugins').find(':selected').data('description');
+
+        jsdisplay.removeClass().addClass('d-block')
+
+        $('.js-plugin-name').text(plugin);
+        $('.js-plugin-url').text(url);
+        $('.js-plugin-url').attr('href', url);
+        $('.js-plugin-license').text(license);
+        $('.js-plugin-description').text(description);
+    });
+});
+</script>
+{% endblock %}

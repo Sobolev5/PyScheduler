@@ -1,0 +1,77 @@
+{% extends 'base/base_auth.html' %}
+{% load i18n %}
+
+{% block css %}
+<style>
+#login-form__show-password {
+    cursor: pointer;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="flex-1" style="background: url({{ STATIC_URL }}base/img/svg/pattern-1.svg) no-repeat center bottom fixed; background-size: cover;">
+    <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="fs-xxl fw-500 mt-4 text-white">
+                    {% trans "Python snippets scheduler" %}
+                </h2>
+                <div class="card">
+                    <div class="card-body p-4 rounded position-relative">
+                        <span class="badge badge-primary fw-300 ml-auto position-absolute pos-top pos-right mr-4 mt-4 hidden-sm-down"><a href="https://github.com/Sobolev5" style="color:white; text-decoration: none">https://github.com/Sobolev5</a></span>
+                        <div class="d-flex align-items-center mb-g">
+                            <img src="{{ STATIC_URL }}python-logo.png" class="mr-3">
+                            <h1 class="fw-300 m-0 l-h-n">
+                                <span class="text-contrast">
+                                    Pure python
+                                </span>
+                                <small class="fw-300 m-0 l-h-n">
+                                    Smart python scheduler with cron execution.
+                                </small>
+                            </h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="mt-xs-3 list-spaced">
+                                    <li>
+                                        Easy editing of snippets
+                                    </li>
+                                    <li>
+                                        Simple interface
+                                    </li>
+                                    <li>
+                                        Cron like syntax
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="mt-xs-3 list-spaced">
+                                    <li>
+                                        Pure Web3 auth
+                                    </li>
+                                    <li>
+                                        Free and open source
+                                    </li>
+                                    <li>
+                                        Easy to install 
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <p class="disclaimer mt-4">
+                                    Web3 friendly
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

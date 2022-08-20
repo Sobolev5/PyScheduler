@@ -1,0 +1,348 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-26 13:54+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: login.html:15 registration.html:26
+msgid "Your email"
+msgstr "Ваша почта"
+
+#: login.html:17
+msgid "Your unique username to app"
+msgstr "Ваше уникальное имя пользователя и пароль"
+
+#: login.html:20
+msgid "Password "
+msgstr "Пароль "
+
+#: login.html:22
+msgid "Your password"
+msgstr "Ваш пароль"
+
+#: login.html:27
+msgid "Remember me for the next 30 day"
+msgstr "Запомнить на следующие 30 дней"
+
+#: login.html:31 password_recover.html:22 registration.html:73
+msgid "Login"
+msgstr "Логин"
+
+#: login.html:34 password_recover.html:22
+msgid "Register Account"
+msgstr "Зарегистрироваться"
+
+#: login.html:34
+msgid "Recover Password"
+msgstr "Восстановить пароль"
+
+#: manager_add_worker.html:22 worker_add_manager.html:23
+msgid "Workhours"
+msgstr ""
+
+#: manager_add_worker.html:23 manager_edit_workers.html:8
+msgid "Edit workers"
+msgstr "Редактировать сотрудников"
+
+#: manager_add_worker.html:24 manager_add_worker.html:29
+#: manager_edit_workers.html:25
+msgid "Add worker"
+msgstr "Добавить сотрудника"
+
+#: manager_add_worker.html:44
+msgid "Worker email address"
+msgstr "Email сотрудника"
+
+#: manager_add_worker.html:48 manager_profile.html:75 manager_profile.html:122
+#: worker_add_manager.html:50 worker_profile.html:73 worker_profile.html:128
+msgid "Company"
+msgstr "Компания"
+
+#: manager_add_worker.html:52 manager_profile.html:163
+#: worker_add_manager.html:54 worker_profile.html:169
+msgid "Submit"
+msgstr "Подтвердить"
+
+#: manager_edit_workers.html:7 manager_profile.html:15
+#: worker_edit_managers.html:8
+msgid "WorkHours"
+msgstr ""
+
+#: manager_edit_workers.html:12
+msgid "My workers"
+msgstr "Мои сотрудники"
+
+#: manager_edit_workers.html:27
+msgid "Worker ID"
+msgstr "ID сотрудника"
+
+#: manager_edit_workers.html:28 worker_edit_managers.html:28
+msgid "Photo"
+msgstr "Фото"
+
+#: manager_edit_workers.html:29
+msgid "Worker name"
+msgstr "Имя сотрудника"
+
+#: manager_edit_workers.html:30 worker_edit_managers.html:30
+msgid "Approved by me"
+msgstr "Подтвержден"
+
+#: manager_edit_workers.html:50
+msgid "You have approved this worker"
+msgstr "Вы подтвержили этого работника"
+
+#: manager_edit_workers.html:51 worker_edit_managers.html:51
+msgid "Approved"
+msgstr "Подтвержден"
+
+#: manager_edit_workers.html:55
+msgid "You didn't approve this worker"
+msgstr "Вы не подтвердили этого сотрудника"
+
+#: manager_edit_workers.html:55 worker_edit_managers.html:55
+msgid "Not approved"
+msgstr "Не подтвержден"
+
+#: manager_edit_workers.html:57 worker_edit_managers.html:57
+msgid "Approve now"
+msgstr "Подтвердить сейчас"
+
+#: manager_edit_workers.html:75 worker_edit_managers.html:75
+msgid "\"Approved\""
+msgstr "Подтверждено"
+
+#: manager_edit_workers.html:76
+msgid "\"Do you want to approve worker\""
+msgstr "Вы точно хотите добавить сотрудника "
+
+#: manager_profile.html:16 manager_profile.html:20 worker_profile.html:16
+#: worker_profile.html:21
+msgid "Profile"
+msgstr "Профиль"
+
+#: manager_profile.html:45 worker_profile.html:43
+msgid "About"
+msgstr "Обо мне"
+
+#: manager_profile.html:48 worker_profile.html:46
+msgid "Details"
+msgstr "Подробности"
+
+#: manager_profile.html:51 worker_profile.html:49
+msgid "Change profile"
+msgstr "Изменить профиль"
+
+#: manager_profile.html:59 worker_profile.html:57
+msgid "Name"
+msgstr "Имя"
+
+#: manager_profile.html:67 worker_profile.html:65
+msgid "Email"
+msgstr "Email"
+
+#: manager_profile.html:83 manager_profile.html:126 worker_profile.html:81
+#: worker_profile.html:132
+msgid "Position"
+msgstr "Должность"
+
+#: manager_profile.html:91 worker_profile.html:89
+msgid "Role"
+msgstr "Роль"
+
+#: manager_profile.html:101
+msgid "Number of workers"
+msgstr "Количество работников"
+
+#: manager_profile.html:109 worker_profile.html:115
+msgid "Availability"
+msgstr "Продолжительность работы через систему"
+
+#: manager_profile.html:112 worker_profile.html:118
+msgid "From"
+msgstr ""
+
+#: manager_profile.html:118 worker_profile.html:124
+msgid "Email address"
+msgstr ""
+
+#: manager_profile.html:130 worker_profile.html:136
+msgid "Language"
+msgstr ""
+
+#: manager_profile.html:140 worker_profile.html:146
+#, fuzzy
+#| msgid "Select timezone:"
+msgid "Timezone:"
+msgstr "Выберите ваш часовой пояс"
+
+#: manager_profile.html:151 worker_profile.html:157
+#, fuzzy
+#| msgid "Upload your photo here"
+msgid "Upload new photo"
+msgstr "Загрузите ваше фото здесь"
+
+#: manager_profile.html:155 worker_profile.html:161
+msgid "Browse…"
+msgstr ""
+
+#: password_recover.html:15
+msgid "Enter your email"
+msgstr "Введите ваш email"
+
+#: password_recover.html:19
+msgid "Send link"
+msgstr "Отправить ссылку"
+
+#: password_recover_set_password.html:16
+msgid "Pick a new password:"
+msgstr "Введите ваш новый пароль"
+
+#: password_recover_set_password.html:18 registration.html:33
+msgid ""
+"Your password must be 8-20 characters long, contain letters and numbers, and "
+"must not contain spaces, special characters, or emoji"
+msgstr ""
+"Пароль должен быть длинной 8-20 символов, содержать буквы и цифры, не должен "
+"содержать пробелов, специальных символов или смайлов"
+
+#: password_recover_set_password.html:24
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: registration.html:13
+msgid "Upload your photo here"
+msgstr "Загрузите ваше фото здесь"
+
+#: registration.html:17
+msgid "Your first and last name"
+msgstr "Ваше иля и фамилия"
+
+#: registration.html:28
+msgid "Your email will also be your username"
+msgstr "Ваш email будет вашем логином"
+
+#: registration.html:31
+msgid "Pick a password:"
+msgstr "Введите пароль"
+
+#: registration.html:40
+msgid "Select language:"
+msgstr "Выберите язык"
+
+#: registration.html:49
+msgid "Select timezone:"
+msgstr "Выберите ваш часовой пояс"
+
+#: registration.html:59
+#, fuzzy
+#| msgid "Select role:"
+msgid "Select role"
+msgstr "Ваша роль"
+
+#: registration.html:69
+msgid "Send"
+msgstr "Отправить"
+
+#: registration.html:73
+msgid "Recover password"
+msgstr "Восстановление пароля"
+
+#: worker_add_manager.html:24
+#, fuzzy
+#| msgid "Manager"
+msgid "Edit managers"
+msgstr "Руководитель"
+
+#: worker_add_manager.html:25 worker_add_manager.html:30
+#: worker_edit_managers.html:25
+#, fuzzy
+#| msgid "Manager"
+msgid "Add manager"
+msgstr "Руководитель"
+
+#: worker_add_manager.html:46
+msgid "Manager email address"
+msgstr ""
+
+#: worker_edit_managers.html:9
+msgid "Account management"
+msgstr ""
+
+#: worker_edit_managers.html:13
+#, fuzzy
+#| msgid "Manager"
+msgid "My managers"
+msgstr "Руководитель"
+
+#: worker_edit_managers.html:27
+#, fuzzy
+#| msgid "Manager"
+msgid "Manager ID"
+msgstr "Руководитель"
+
+#: worker_edit_managers.html:29
+#, fuzzy
+#| msgid "Manager"
+msgid "Manager name"
+msgstr "Руководитель"
+
+#: worker_edit_managers.html:50
+msgid "You have approved this manager"
+msgstr ""
+
+#: worker_edit_managers.html:55
+msgid "You didn't approve this manager"
+msgstr ""
+
+#: worker_profile.html:15
+msgid "Menu"
+msgstr ""
+
+#: worker_profile.html:99
+msgid "Experience"
+msgstr "Опыт"
+
+#: worker_profile.html:107
+msgid "Hourly Rate"
+msgstr "Часовая ставка"
+
+#~ msgid "Change photo"
+#~ msgstr "Изменить фото"
+
+#~ msgid "-Change password"
+#~ msgstr "Изменить пароль"
+
+#~ msgid "Uinque id"
+#~ msgstr "Уникальный id"
+
+#~ msgid "Access level"
+#~ msgstr "Уровень доступа"
+
+#~ msgid "Can edit hours"
+#~ msgstr "Можно изменять рабочие часы"
+
+#~ msgid "Old password"
+#~ msgstr "Старый пароль"
+
+#~ msgid "New password"
+#~ msgstr "Новый пароль"
+
+#~ msgid "Repeat password"
+#~ msgstr "Повторить пароль"

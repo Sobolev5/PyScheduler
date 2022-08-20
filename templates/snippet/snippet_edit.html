@@ -1,0 +1,156 @@
+{% extends "base/base.html" %}
+{% load i18n  %}
+
+{% block title %}{{ HOST_PRETTY }} :: {% trans "Сессия" %} #{{ worker_session.id }}.{% endblock %}
+
+{% block css %}
+<style>
+textarea {
+    height:300px !important;
+    resize: vertical;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<ol class="breadcrumb page-breadcrumb">
+    <li class="breadcrumb-item"><a href="/">{{ HOST_PRETTY }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'snippet:snippet_list' %}">Snippets</a></li>
+    {% if snippet %}<li class="breadcrumb-item">{{ snippet.title }}</a></li>{% endif %}
+    <li class="position-absolute pos-top pos-right d-none d-sm-block">{% now 'd F Y' %}</span></li>
+</ol>
+
+<div class="row">
+    <div class="col-xl-12 ml-auto mr-auto">
+        <div id="panel-2" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    {% if snippet %}
+                        <i class='subheader-icon fal fa-edit'></i> {{ snippet.title }} {% if snippet.last_execution_date %}(Last execution {{ snippet.last_execution_date }}){% endif %}
+                    {% else %}
+                        <i class='subheader-icon fal fa-plus'></i> Add snippet
+                    {% endif %}
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content p-0">
+                    <form class="" novalidate="" action="" method="POST">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="validationCustom01">Snippet title</label>
+                                    <input type="text" class="form-control" id="validationCustom01" placeholder="{% if not snippet %}Title{% endif %}" value="{{ snippet.title }}" required="" name="title">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="validationCustom02">Snippet description</label>
+                                    <input type="text" class="form-control" id="validationCustom02" placeholder="{% if not snippet %}Description{% endif %}" value="{{ snippet.description }}" required="" name="description">
+                                </div>
+                            </div>
+                            <div class="form-row form-group">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label" for="validationCustom03">Cron time</label>
+                                    <input type="text" class="form-control" id="validationCustom03" placeholder="{% if snippet %}{{ snippet.cron_time }}{% else %}*/2 * * * *{% endif %}" value="{{ snippet.cron_time }}" required="" name="cron_time">
+                                    <div class="help-block"><a href="https://crontab.guru/" target="_blank">https://crontab.guru/</a></div>
+                                </div>
+                            </div>
+                            <div class="form-row form-group">                            
+                                <div class="col-12 mb-3">
+                                    <label class="form-label" for="validationTextarea2">Code</label>
+                                    {% if snippet %}<textarea id="code" class="form-control" required="" name="code">{{ snippet.code.strip }}</textarea>{% endif %}
+                                    {% if not snippet %}<textarea id="code" class="form-control" required="" name="code"></textarea>{% endif %} 
+                                    <div class="help-block"><a href="https://www.programiz.com/python-programming/online-compiler/" target="_blank">https://www.programiz.com/python-programming/online-compiler/</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="invalidCheck" {% if snippet.active or not snippet %}checked{% endif %} name="active">
+                                <label class="custom-control-label" for="invalidCheck">Active</label>
+                            </div>
+                            <button class="btn btn-primary ml-auto waves-effect waves-themed" type="submit">Save snippet</button>
+                            
+                            {% if snippet %}
+                                <a class="btn btn-primary ml-2 waves-effect waves-themed" href="#" onclick="executeSnippet()">Execute snippet</a>
+                                <a class="btn btn-danger ml-2 waves-effect waves-themed" href="#" onclick="deleteSnippet()">Delete snippet</a>
+                            {% endif %}
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% if snippet %}
+    <script>   
+    function deleteSnippet() {
+        Swal.fire({
+            title: "Delete snippet?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#fd3995',
+            cancelButtonColor: '#18a899',
+            confirmButtonText: "Yes",
+            cancelButtonText: "No"
+        }).then((result) => {
+            if (result.value) {
+                var myHeaders = new Headers();
+                myHeaders.append('{{ csrf_token }}',"Content-Type", "application/json");
+    
+                var requestOptions = {
+                    method: 'DELETE',
+                    headers: myHeaders,
+                    redirect: 'follow'
+                };
+    
+                fetch("{% url 'snippet:snippet_edit' snippet_id=snippet.id %}", requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                console.log(data)
+                if ("delete" in data) {
+                    Swal.fire(
+                        "Snippet successfully deleted",
+                    );
+                    window.location.href = 'https://{{ HOST }}/snippet/list/';
+                }
+                })
+                .catch((error) => {
+                console.error('Error:', error);
+                });
+            }
+        })
+    }     
+    </script>
+    <script> 
+    function executeSnippet() {
+        var form = document.createElement('form');
+        form.action = "{% url 'snippet:snippet_edit' snippet_id=snippet.id %}";
+        form.method = 'POST';
+        
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'execute';
+        input.value = 1;
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+        
+    </script>
+{% endif %}
+
+{% endblock %}
+    
+
+
+
+

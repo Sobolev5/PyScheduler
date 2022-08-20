@@ -1,0 +1,138 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}{{ HOST_PRETTY }} :: Snippets scheduler{% endblock %}
+    </title>
+    <meta name="description" content="Login">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-tap-highlight" content="no">
+    <link id="vendorsbundle" rel="stylesheet" media="screen, print" href="{{ STATIC_URL }}base/css/vendors.bundle.css">
+    <link id="appbundle" rel="stylesheet" media="screen, print" href="{{ STATIC_URL }}base/css/app.bundle.css">
+    <link id="mytheme" rel="stylesheet" media="screen, print" href="#">
+    <link id="myskin" rel="stylesheet" media="screen, print" href="{{ STATIC_URL }}base/css/skins/skin-master.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}base/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}base/img/favicon/favicon-32x32.png">
+    <link rel="mask-icon" href="{{ STATIC_URL }}base/img/favicon/safari-pinned-tab.svg" color="#5bad5">
+    <link rel="stylesheet" media="screen, print" href="{{ STATIC_URL }}base/css/fa-brands.css">
+    <link rel="stylesheet" media="screen, print" href="{{ STATIC_URL }}base/css/fa-solid.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ STATIC_URL }}icon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ STATIC_URL }}icon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ STATIC_URL }}icon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ STATIC_URL }}icon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ STATIC_URL }}icon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ STATIC_URL }}icon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}icon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ STATIC_URL }}icon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}icon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}icon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ STATIC_URL }}icon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}icon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">               
+    <style>
+    .alert {
+        margin-bottom: 0px;
+        border-bottom: 1px solid #4b497a;
+    }
+    </style>
+    {% block css %}
+    {% endblock %}    
+</head>
+<body>
+    <div class="page-wrapper auth">
+        <div class="page-inner bg-brand-gradient">
+            <div class="page-content-wrapper bg-transparent m-0">
+                <div class="height-10 w-100 shadow-lg px-4 bg-brand-gradient">
+                    <div class="d-flex align-items-center container p-0">
+                        <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center p-0 bg-transparent bg-img-none shadow-0 height-9 border-0">
+                            <a href="/" class="page-logo-link press-scale-down d-flex align-items-center">
+                                <img src="{{ STATIC_URL }}base/img/clock-logo.png" alt="Workhours.ru" aria-roledescription="logo">
+                                <span class="page-logo-text mr-1">{{ HOST_PRETTY }}</span>
+                            </a>
+                        </div>                      
+                        {% url 'main:user_login' as login_url %}
+                        <button class="btn-link text-white ml-auto {% if request.path == login_url %}btn btn-success btn-pills{% endif %}" onclick="web3Login()">
+                            <span class="fab fa-ethereum mr-1"></span>
+                            Log in with Metamask
+                        </button>
+                    </div>
+                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="d-flex alert bg-{{ message.level_tag }}-500" role="alert">
+                            <div class="mx-auto">{{ message }}</div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
+                {% now 'Y' %} {{ HOST_PRETTY }} &nbsp;
+            </div>
+        </div>
+    </div>
+    <script src="{{ STATIC_URL }}base/js/jquery-3.6.0.min.js"></script>
+    <script src="{{ STATIC_URL }}base/js/vendors.bundle.js"></script>
+    <script src="{{ STATIC_URL }}base/js/app.bundle.js"></script>
+    <script src="{{ STATIC_URL }}base/js/statistics/peity/peity.bundle.js"></script>
+    <script src="{{ STATIC_URL }}base/js/statistics/flot/flot.bundle.js"></script>
+    <script src="{{ STATIC_URL }}base/js/statistics/easypiechart/easypiechart.bundle.js"></script>
+    <script src="{{ STATIC_URL }}base/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script src="{{ STATIC_URL }}base/js/notifications/sweetalert2/sweetalert2.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script>
+
+    function web3Login() {
+        window.ethereum.enable().then(function () {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            provider.getNetwork().then(function (result) {
+                if (result['chainId'] != 1) {
+                    alert('Switch to Mainnet!');
+                } else { 
+                    provider.listAccounts().then(function (result) {
+                        console.log(result);
+                        accountAddress = result[0]; 
+                        rightnow = (Date.now()/1000).toFixed(0);
+                        sortanow = rightnow-(rightnow%600);
+                        signer = provider.getSigner();
+                        signer.signMessage("Signing in to "+document.domain+" at "+sortanow, accountAddress, "1").then((signature) => {web3LoginBackend(accountAddress, signature)});
+                    })
+                }
+            })
+        })
+    }
+    
+    function web3LoginBackend(accountAddress, signature) {
+        var form = document.createElement('form');
+        form.action = '{% url "main:auth_web3" %}';
+        form.method = 'POST';
+        
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'accountAddress';
+        input.value = accountAddress;
+        form.appendChild(input);
+    
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'signature';
+        input.value = signature;
+        form.appendChild(input);
+    
+        document.body.appendChild(form);
+        form.submit();
+    }
+        
+    </script>
+    {% block js %}
+    {% endblock %}
+</body>
+</html>

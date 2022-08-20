@@ -1,0 +1,159 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ HOST_PRETTY }} :: Profile{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb page-breadcrumb">
+    <li class="breadcrumb-item"><a href="/">{{ HOST_PRETTY }}</a></li>
+    <li class="breadcrumb-item active">Profile</li>
+    <li class="position-absolute pos-top pos-right d-none d-sm-block">{% now 'd F Y' %}</span></li>
+</ol>
+
+<div class="subheader">
+    <h1 class="subheader-title">
+        <i class='subheader-icon fal fa-address-card'></i> Profile <span class='fw-300'>{{ request.user_profile.name|title }}</span>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-xl-4 order-lg-1 order-xl-1 hidden-xs d-none d-md-block">
+        <table class="table table-bordered table-hover w-100" style="background: #fff;">
+            <tbody>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <td>
+                        {{ request.user_profile.name|title }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Eth address
+                    </th>
+                    <td>
+                        {{ request.user_profile.eth_account_address|upper }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Registration date
+                    </th>
+                    <td>
+                        {{ request.user_profile.creation_date|date:"d.m.Y" }}
+                    </td>
+                </tr>      
+            </tbody>
+        </table>        
+    </div>
+    <div class="col-lg-12 col-xl-8 order-lg-3 order-xl-2">
+        <div class="row">
+            <div class="col-xl-12">
+                <div id="panel-1" class="panel">
+                    <div class="panel-container show">
+                        <div class="panel-hdr">
+                            <h2>
+                                Options <span class="fw-300"><i></i></span>
+                            </h2>
+                        </div>
+                        <div class="panel-content">
+                            <div class="profile-head mb-4">
+                                <ul class="nav nav-pills" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="false">Edit profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#delete-profile" role="tab" aria-controls="delete-profile" aria-selected="false">Delete profile</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content profile-tab" id="myTabContent">
+                                <div class="tab-pane active" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile">
+                                    <form method="POST" enctype="multipart/form-data" action="">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="edit_profile_form" value="1">
+                                        <div class="form-group">
+                                            <label class="form-label" for="first_name">First name:</label>
+                                            <input type="text" class="form-control" value="{{ request.user.first_name }}" name="first_name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="last_name">Last name:</label>
+                                            <input type="text" class="form-control" value="{{ request.user.last_name }}" name="last_name" required>
+                                        </div>                              
+                                        <div class="row no-gutters">
+                                            <button type="submit" class="btn btn-success" data-toggle="button" aria-pressed="false" autocomplete="off">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane fade" id="delete-profile" role="tabpanel" aria-labelledby="profile-delete-tab">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="align-items-center justify-content-center">
+                                                <button type="button" onclick="deleteProfile()" class="btn btn-danger waves-effect waves-themed">Delete profile</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+
+// delete
+function deleteProfile() {
+    Swal.fire({
+        title: "You are going to delete your profile",
+        text: "This action is can not be undone",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#fd3995',
+        cancelButtonColor: '#18a899',
+        confirmButtonText: "Yes, delete",
+        cancelButtonText: "Cancel"
+    }).then((result) => {
+        if (result.value) {
+            var myHeaders = new Headers();
+            myHeaders.append('{{ csrf_token }}',"Content-Type", "application/json");
+
+            var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch("{% url 'user_profile:edit_profile' %}", requestOptions)
+            .then(response => response.json())
+            .then(data => {
+              console.log(data)
+              if ("delete" in data) {
+                Swal.fire(
+                    "Your profile has been successfully deleted",
+                );
+                window.location.href = '/';
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+
+        }
+    })
+}
+
+</script>
+
+{% endblock %}
+
+
